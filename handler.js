@@ -1,12 +1,13 @@
 'use strict';
-
-const serverless = require(‘serverless-http’);
-const express = require(‘express’);
+const serverless = require('serverless-http');
+const express = require('express');
 const app = express();
+app.get('/tasks', function (req, res) {
+  res.send({
+    message: 'Your API works',
+  });
+});
 
-app.get('/tasks', function (request, response) {
-  response.send('Hello World!');
-})
 // we're saying, when someone sends a get request to /tasks, we want this function to fire. Request. Response. The response is what goes back to the client. 
 
 module.exports.tasks = serverless(app);
