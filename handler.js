@@ -33,8 +33,9 @@ const app = express();
   // PUT
   app.put('/tasks/:taskId', function(req, res) {
     res.json({
+      const taskId = request.params.taskId;
       ({
-        message: 'Your PUT works',
+        message: 'Your PUT works - editing a task',
         })
     });
   });
@@ -44,7 +45,7 @@ const app = express();
   app.post('/tasks/', function(req, res) {
     res.json({
       ({
-        message: 'Your POST works',
+        message: 'Your POST works - making a new task',
         })
     });
   });
@@ -53,8 +54,9 @@ const app = express();
 // DELETE
   app.delete('/tasks/:taskId', function(req, res) {
     res.json({
+      const taskId = request.params.taskId;
       ({
-        message: 'Your DELETE works',
+        message: 'Your DELETE works - deleting a task',
         })
     });
   });
