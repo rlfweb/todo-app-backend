@@ -27,8 +27,38 @@ const app = express();
       ],
     });
   });
-
 // we're saying, when someone sends a get request to /tasks, we want this function to fire. Request. Response. The response is what goes back to the client. 
+
+
+  // PUT
+  app.put('/tasks/:taskId', function(req, res) {
+    res.json({
+      ({
+        message: 'Your PUT works',
+        })
+    });
+  });
+
+
+// POST
+  app.post('/tasks/', function(req, res) {
+    res.json({
+      ({
+        message: 'Your POST works',
+        })
+    });
+  });
+
+
+// DELETE
+  app.delete('/tasks/:taskId', function(req, res) {
+    res.json({
+      ({
+        message: 'Your DELETE works',
+        })
+    });
+  });
+
 
 module.exports.tasks = serverless(app);
 // we're changing module.exports.handler to module.exports.tasks because we're saying that the handler is actually tasks, as per the name we used in serverless.yml

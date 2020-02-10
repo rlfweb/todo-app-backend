@@ -1,5 +1,5 @@
 # delete all the things from this file that you don't need.
-# it's important that the indents are correct - it won't work properly without. You can google serverless.com/ramework/docs/providers/aws/guide/serverless.yml/ to check the original to see if the indents are correct. 
+# it's important that the indents are correct - it won't work properly without. You can google serverless.com/framework/docs/providers/aws/guide/serverless.yml/ to check the original to see if the indents are correct. 
 
 service: todo-app-backend
 
@@ -15,4 +15,16 @@ functions:
       - http:
           path: tasks
           method: get
+          cors: true
+      - http:
+          path: tasks/{taskId}
+          method: put
+          cors: true
+      - http:
+          path: tasks
+          method: post
+          cors: true
+      - http:
+          path: tasks/{taskId}
+          method: delete
           cors: true
