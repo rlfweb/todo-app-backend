@@ -13,20 +13,18 @@ const app = express();
 
   app.get('/tasks/', function(req, res) {
     res.json({
-      state: {
-        workTasks: [
-          { id: 1, description: "Phone chat with Sarah", completed: false },
-          { id: 2, description: "Learn JS", completed: false },
-          { id: 3, description: "View webinar", completed: false },
-          { id: 4, description: "Spray mount for cards", completed: false }
-        ],
-        homeTasks: [
-          { id: 1, description: "Reply to Viv", completed: false },
-          { id: 2, description: "Get bike serviced", completed: false },
-          { id: 3, description: "Take back Sloth", completed: false },
-          { id: 4, description: "Food for lunch", completed: false }
-        ],
-      }
+      workTasks: [
+        { id: 1, description: "Phone chat with Sarah", completed: false },
+        { id: 2, description: "Learn JS", completed: false },
+        { id: 3, description: "View webinar", completed: false },
+        { id: 4, description: "Spray mount for cards", completed: false }
+      ],
+      homeTasks: [
+        { id: 1, description: "Reply to Viv", completed: false },
+        { id: 2, description: "Get bike serviced", completed: false },
+        { id: 3, description: "Take back Sloth", completed: false },
+        { id: 4, description: "Food for lunch", completed: false }
+      ],
     });
   });
 
