@@ -1,63 +1,56 @@
 'use strict';
+
 const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
+const uuidv4 = require('uuid/v4');
+const mysql = require('mysql');
 
+const connection = mysql.createConnection({
+  host     : 'XXXX',
+  user     : 'XXXX',
+  password : 'XXXX',
+  database : 'XXXX'
+});
 
+// GET - RETRIEVING TASKS
+  app.get('/tasks', function (req, res) {
 
-  // update this to send back an array of tasks - remember the codes we hard-coded in react state - maybe just paste that in. Put the array in here and then Postman will display them / respond with an array of tasks. Request / Response. It'll still be res.json. 
-  // It's the contents of this that will change:
-  // ({
-  //   message: 'Your API works',
-  // })
-
-  app.get('/tasks/', function(req, res) {
-    res.json({
-      workTasks: [
-        { id: 1, description: "Phone chat with Sarah", completed: false },
-        { id: 2, description: "Learn JS", completed: false },
-        { id: 3, description: "View webinar", completed: false },
-        { id: 4, description: "Spray mount for cards", completed: false }
-      ],
-      homeTasks: [
-        { id: 1, description: "Reply to Viv", completed: false },
-        { id: 2, description: "Get bike serviced", completed: false },
-        { id: 3, description: "Take back Sloth", completed: false },
-        { id: 4, description: "Food for lunch", completed: false }
-      ],
+    connection.query('SELECT * FROM `tasks` WHERE `userID` = "1"', function (error, results, fields) {
+// error will be an Error if one occurred during the query
+      if(error) {
+        console.error("Your query had a problem with fetching tasks", error);
+        res.status(500).json({errorMessage: error});
+      } 
+      else {
+// query was successful
+        res.json({tasks: results});
+      }
     });
   });
 // we're saying, when someone sends a get request to /tasks, we want this function to fire. Request. Response. The response is what goes back to the client. 
 
 
-  // PUT
-  app.put('/tasks/:taskId', function(req, res) {
+// PUT - UPDATING / EDITING TASKS
+  app.put('/tasks/:taskId', function (req, res) {
     res.json({
-      const taskId = request.params.taskId;
-      ({
-        message: 'Your PUT works - editing a task',
-        })
+      message: 'Your PUT works - editing a task',
     });
   });
 
 
-// POST
-  app.post('/tasks/', function(req, res) {
+// POST - CREATING TASKS
+  app.post('/tasks', function (req, res) {
     res.json({
-      ({
-        message: 'Your POST works - making a new task',
-        })
+      message: 'Your POST works - making a new task',
     });
   });
 
 
-// DELETE
-  app.delete('/tasks/:taskId', function(req, res) {
+// DELETE - DELETING TASKS
+  app.delete('/tasks/:taskId', function (req, res) {
     res.json({
-      const taskId = request.params.taskId;
-      ({
-        message: 'Your DELETE works - deleting a task',
-        })
+      message: 'Your DELETE works - deleting a task',
     });
   });
 
