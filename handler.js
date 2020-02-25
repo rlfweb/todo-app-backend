@@ -39,9 +39,32 @@ app.get("/tasks", function(req, res) {
 // By default, a new task has a boolean of 0. 
 // We would want to change this 0 to a 1, which would mark the task as completed. 
 app.put("/tasks/:taskId", function(req, res) {
-  res.json({
-    message: "Your PUT works - editing a task"
+
+  const taskToUpdate = req.body;
+
+  connection.query("UPDATE `tasks` SET ?", taskToUpdate, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      console.error(
+        "Your query had a problem with marking a task as completed",
+        error
+      );
+      res.status(500).json({ errorMessage: error });
+    } else {
+      // Return to the client information about the task that has been created - i.e. tell our Postman or our React App that our task was successfully created, or an error if it was not
+      res.json({
+        tasks: taskToInsert
+      });
+    }
   });
+
+  // res.json({
+  //   message: "Your PUT works - editing a task"
+  // });
+
 });
 
 // // POST - CREATING TASKS - it's not got the taskId because a new task is being created
