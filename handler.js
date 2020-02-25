@@ -35,6 +35,9 @@ app.get("/tasks", function(req, res) {
 // we're saying, when someone sends a get request to /tasks, we want this function to fire. Request. Response. The response is what goes back to the client.
 
 // // PUT - UPDATING / EDITING TASKS - it's got the taskId because it's necessary to edit a particular task
+// For our todo app, we will update when the task has been completed 
+// By default, a new task has a boolean of 0. 
+// We would want to change this 0 to a 1, which would mark the task as completed. 
 app.put("/tasks/:taskId", function(req, res) {
   res.json({
     message: "Your PUT works - editing a task"
@@ -70,6 +73,7 @@ app.post("/tasks", function(req, res) {
 });
 
 // // DELETE - DELETING TASKS - it's got the taskId because it's necessary to delete a particular task
+// We would want to grab a particular taskId and remove that from the database. 
 app.delete("/tasks/:taskId", function(req, res) {
   res.json({
     message: "Your DELETE works - deleting a task"
@@ -78,6 +82,12 @@ app.delete("/tasks/:taskId", function(req, res) {
 
 module.exports.tasks = serverless(app);
 // we're changing module.exports.handler to module.exports.tasks because we're saying that the handler is actually tasks, as per the name we used in serverless.yml
+
+
+
+
+
+
 
 // BELOW IS THE CODE THAT APPEARS IN HANDLER.JS BY DEFAULT AND WE HAVE DELETED WHAT WE DON'T NEED:
 
