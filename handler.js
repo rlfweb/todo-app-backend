@@ -50,7 +50,7 @@ app.get("/tasks", function(req, res) {
 // We would want to change this 0 to a 1, which would mark the task as completed. 
 app.put("/tasks/:taskId", function(req, res) {
 
-  const taskToUpdate = req.params.taskId;
+  const taskToUpdate = req.body.taskId;
 
   connection.query("UPDATE `tasks` SET `completed` = true WHERE `taskId` = ?", taskToUpdate, function(
     error,
