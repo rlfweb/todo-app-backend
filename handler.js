@@ -15,7 +15,12 @@ const connection = mysql.createConnection({
   database: process.env.DB_SCHEMA
 });
 
-// GET - RETRIEVING TASKS - it's not got the taskId because we are just retrieving tasks, not doing anything to them
+
+
+
+// GET 
+
+// RETRIEVING TASKS - it's not got the taskId because we are just retrieving tasks, not doing anything to them
 app.get("/tasks", function(req, res) {
   connection.query('SELECT * FROM `tasks` WHERE `userId` = "1"', function(
     error,
@@ -34,15 +39,20 @@ app.get("/tasks", function(req, res) {
 });
 // we're saying, when someone sends a get request to /tasks, we want this function to fire. Request. Response. The response is what goes back to the client.
 
-// // PUT - UPDATING / EDITING TASKS - it's got the taskId because it's necessary to edit a particular task
+
+
+
+// PUT 
+
+// UPDATING / EDITING TASKS - it's got the taskId because it's necessary to edit a particular task
 // For our todo app, we will update when the task has been completed 
 // By default, a new task has a boolean of 0. 
 // We would want to change this 0 to a 1, which would mark the task as completed. 
 app.put("/tasks/:taskId", function(req, res) {
 
-  const taskToUpdate = req.body;
+  const taskToUpdate = req.params.taskId;
 
-  connection.query("UPDATE `tasks` SET ?", taskToUpdate, function(
+  connection.query("UPDATE `tasks` SET `completed` = true WHERE `taskId` = ?", taskToUpdate, function(
     error,
     results,
     fields
@@ -56,7 +66,8 @@ app.put("/tasks/:taskId", function(req, res) {
     } else {
       // Return to the client information about the task that has been created - i.e. tell our Postman or our React App that our task was successfully created, or an error if it was not
       res.json({
-        tasks: taskToInsert
+        message: "Your task has been marked as completed",
+        tasks: taskToUpdate
       });
     }
   });
@@ -67,7 +78,12 @@ app.put("/tasks/:taskId", function(req, res) {
 
 });
 
-// // POST - CREATING TASKS - it's not got the taskId because a new task is being created
+
+
+
+// POST 
+
+// CREATING TASKS - it's not got the taskId because a new task is being created
 app.post("/tasks", function(req, res) {
   // accept information from the client about what task is being created i.e. take some information in from the request
   const taskToInsert = req.body;
@@ -95,13 +111,41 @@ app.post("/tasks", function(req, res) {
   });
 });
 
-// // DELETE - DELETING TASKS - it's got the taskId because it's necessary to delete a particular task
+
+
+
+// DELETE 
+
+// DELETING TASKS - it's got the taskId because it's necessary to delete a particular task
 // We would want to grab a particular taskId and remove that from the database. 
 app.delete("/tasks/:taskId", function(req, res) {
-  res.json({
-    message: "Your DELETE works - deleting a task"
+
+  const taskToDelete = req.body.taskId;
+
+  connection.query("DELETE FROM `tasks` WHERE `taskId` = ?", taskToDelete, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      console.error(
+        "Your query had a problem with deleting the task",
+        error
+      );
+      res.status(500).json({ errorMessage: error });
+    } else {
+      
+      res.json({
+        message : "Task deleted",
+        tasks : taskToDelete
+      });
+    }
   });
+
 });
+
+
+
 
 module.exports.tasks = serverless(app);
 // we're changing module.exports.handler to module.exports.tasks because we're saying that the handler is actually tasks, as per the name we used in serverless.yml
