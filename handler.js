@@ -6,6 +6,8 @@ const app = express();
 app.use(express.json());
 const uuidv4 = require("uuid/v4");
 const mysql = require("mysql");
+const cors = require("cors");
+app.use(cors());
 
 // CONFIG FOR CONNECTING TO DATABASE
 const connection = mysql.createConnection({
